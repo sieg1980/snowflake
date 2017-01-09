@@ -1,0 +1,21 @@
+{
+    "name": "iserlohn/snowflake",
+    "description": "Generate 64bit UUID with 34bit timestamp, 4bit machine id and 26bit random number.",
+    "type": "library",
+    "require": {
+        "php": ">=7.0.0",
+        "ext-redis": ">=3.0.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zhao Yan",
+            "email": "sieg@zimutech.com"
+        }
+    ],
+    "autoload": {
+		"psr-4": {
+			"Iserlohn\\Snowflake\\": "src/"
+		}
+	}
+}
