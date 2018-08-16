@@ -1,6 +1,6 @@
 {
-    "name": "iserlohn/snowflake",
-    "description": "Generate 64bit UUID with 34bit timestamp, 4bit machine id and 26bit random number.",
+    "name": "zimutech/snowflake",
+    "description": "Generate 64bit UUID with 45bit timestamp, 4bit machine id and 14bit serial number.",
     "type": "library",
     "require": {
         "php": ">=7.0.0",
@@ -15,7 +15,7 @@
     ],
     "autoload": {
 		"psr-4": {
-			"Iserlohn\\Snowflake\\": "src/"
+			"Zimutech\\Snowflake\\": "src/"
 		}
 	}
 }

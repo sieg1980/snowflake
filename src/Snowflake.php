@@ -1,39 +1,27 @@
 <?php
 
-namespace Iserlohn\Snowflake;
+namespace Zimutech\Snowflake;
 
 class Snowflake
 {
-	const twepoch = 1419120000;
-	
+	const twepoch = 946684800000;
+
 	private $key;
 	private $machineId;
 	private $redis;
 	
-	public function __construct($prefix, $machineId, &$redis)
+	public function __construct(string $prefix, int $machineId, object &$redis)
 	{
-    	$this->key = $prefix . '.atom.generate.random';
+    	$this->key = $prefix . '.snowflake.serial';
 		$this->machineId = $machineId;
-		
-		if(is_object($redis)) {
-    		$this->redis = $redis;
-		} else {
-    		$this->redis = new \Redis();
-    		$this->redis->open($redis['host'], $redis['port']);
-		}
+		$this->redis = $redis;
 	}
 	
 	public function generate() : int
 	{
-		do {
-			$random = mt_rand(0, 67168863);
-		} while($this->redis->sadd($this->key, $random) == false);
-		
-		if($this->redis->ttl($this->key) == -2) {
-			$this->redis->expire($this->key, 1);
-		}
-		
-		$uuid = ((time() - self::twepoch) << 30) | ($this->machineId << 26) | $random;
+		$now = ceil(microtime(true) * 1000.0) - self::twepoch;
+		$serial = $this->redis->incr($this->key) % 16384;
+		$uuid = $now << 18 | $this->machineId << 14 | $serial;
 		
 		return $uuid;
 	}
