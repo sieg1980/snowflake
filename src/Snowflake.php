@@ -1,6 +1,6 @@
 <?php
 
-namespace Zimutech\Snowflake;
+namespace Zimutech;
 
 class Snowflake
 {
